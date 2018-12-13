@@ -35,6 +35,7 @@ fileout = open(file_output,"w")
 SERVER_ADDRESS = '0.0.0.0'
 SERVER_IPERF_PORT = 5201
 pipe_name = 'pipe_iperf_measurement'
+directory_output = './results/'
 
 #GLOBAL VARIABLES
 keep_executing = True
@@ -64,7 +65,7 @@ def str_to_float(val):
 
 def UDPiperfthread():
 
-    #in theory this thread should never terminate
+
     print "UDPiperfthread:  launching UDP test with iperf3 server"
 
     global keep_executing
@@ -93,9 +94,11 @@ if len(sys.argv) < 2:
     print "Specify the output file as argument (without extension)"
     sys.exit()
 
+if not os.path.exists(directory_output):
+    os.makedirs(directory_output)
 
 # dato che passiamo valori da terminale, siamo (quasi) sicuri sia una stringa
-file_output = "./results/" + str(sys.argv[1]) + "_" + str(int(time.time())) + ".txt"
+file_output = directory_output + str(sys.argv[1]) + "_" + str(int(time.time())) + ".txt"
 
 
 
